@@ -1,9 +1,11 @@
 import asyncio
 import logging
 
-
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.utils.exceptions import NetworkError
+
+import time
 
 from config import load_config
 from misc.Notifications import start_notification, closing_notification
@@ -47,7 +49,11 @@ async def main():
 
 
 if __name__ == '__main__':
-    try:
-        asyncio.run(main())
-    except (KeyboardInterrupt, SystemExit):
-        logger.error("Bot stopped!")
+    while True:
+        try:
+                asyncio.run(main())
+        except (KeyboardInterrupt, SystemExit):
+            logger.error("Bot stopped!")
+        except (NetworkError):
+            time.sleep(10)
+
