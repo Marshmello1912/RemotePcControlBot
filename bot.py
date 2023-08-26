@@ -8,11 +8,13 @@ from aiogram.utils.exceptions import NetworkError
 import time
 
 from config import load_config
+
 from misc.Notifications import start_notification, closing_notification
 
 from handlers.steam import register_steam_handlers
 from handlers.browser import register_browser_handlers
 from handlers.system import register_system_handlers
+from handlers.menu import register_menu_handlers
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +23,7 @@ def register_handlers(dp: Dispatcher):
     register_steam_handlers(dp)
     register_system_handlers(dp)
     register_browser_handlers(dp)
+    register_menu_handlers(dp)
 
 
 async def main():
@@ -51,9 +54,8 @@ async def main():
 if __name__ == '__main__':
     while True:
         try:
-                asyncio.run(main())
+            asyncio.run(main())
         except (KeyboardInterrupt, SystemExit):
             logger.error("Bot stopped!")
-        except (NetworkError):
+        except NetworkError:
             time.sleep(10)
-
