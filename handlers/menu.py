@@ -5,22 +5,22 @@ from keyboards import keyboard
 
 async def exit_from_states(message: types.Message):
     await Form.menu.set()
-    await message.answer('', reply_markup=keyboard.rKeyboardMenu)
+    await message.answer('Вы вернулись в меню', reply_markup=keyboard.rKeyboardMenu)
 
 
 async def steam(message: types.Message):
     await Form.Steam.set()
-    await message.answer('', reply_markup=keyboard.rKeyboardSteam)
+    await message.answer('Открыть стим или запустить игру?', reply_markup=keyboard.rKeyboardSteam)
 
 
 async def system(message: types.Message):
     await Form.System.set()
-    await message.answer('', reply_markup=keyboard.rKeyboardSystem)
+    await message.answer('Выключить или перезагрузить пк?', reply_markup=keyboard.rKeyboardSystem)
 
 
 async def browser(message: types.Message):
     await Form.Browser.set()
-    await message.answer('', reply_markup=keyboard.rKeyboardBrowser)
+    await message.answer('Открыть браузер?', reply_markup=keyboard.rKeyboardBrowser)
 
 
 def register_menu_handlers(dp: Dispatcher):
