@@ -5,7 +5,7 @@ from config import load_config
 
 config = load_config('.env')
 
-browserStart = KeyboardButton('Запустить браузер')
+BrowserStart = KeyboardButton('Запустить браузер')
 OpenYoutube = KeyboardButton('Открыть ютуб')
 
 StartSteam = KeyboardButton('Запустить Steam')
@@ -14,7 +14,14 @@ OpenGame = KeyboardButton(f'Запустить {config.steam.gameName}')
 TurnOff = KeyboardButton('Выключить ПК')
 Reboot = KeyboardButton('Перезагрузить ПК')
 
-rKeyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-rKeyboard.row(browserStart, OpenYoutube)
-rKeyboard.row(StartSteam, OpenGame)
-rKeyboard.row(TurnOff, Reboot)
+Browser = KeyboardButton("Браузер")
+Steam = KeyboardButton("Стим")
+System = KeyboardButton('Система')
+
+Exit = KeyboardButton("Назад")
+
+rKeyboardBrowser = ReplyKeyboardMarkup(resize_keyboard=True).row(BrowserStart, OpenYoutube).add(Exit)
+rKeyboardSteam = ReplyKeyboardMarkup(resize_keyboard=True).row(StartSteam, OpenGame).add(Exit)
+rKeyboardSystem = ReplyKeyboardMarkup(resize_keyboard=True).row(TurnOff, Reboot).add(Exit)
+
+rKeyboardMenu = ReplyKeyboardMarkup(resize_keyboard=True).row(Browser, Steam, System)
