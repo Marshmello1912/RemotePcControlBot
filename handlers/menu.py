@@ -27,5 +27,5 @@ def register_menu_handlers(dp: Dispatcher):
     dp.register_message_handler(exit_from_states,lambda msg: msg.text == 'Назад' or msg.text == '/start', state="*")
     dp.register_message_handler(steam, lambda msg: msg.text == keyboard.Steam.text, state=Form.menu)
     dp.register_message_handler(browser, lambda msg: msg.text == keyboard.Browser.text, state=Form.menu)
-    dp.register_message_handler(system, lambda msg: msg.text == keyboard.System, state=Form.menu)
+    dp.register_message_handler(system, lambda msg: msg.text == keyboard.System.text, state=Form.menu)
 
