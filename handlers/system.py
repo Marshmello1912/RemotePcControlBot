@@ -15,5 +15,5 @@ async def reboot(message: types.Message):
 
 
 def register_system_handlers(dp: Dispatcher):
-    dp.register_message_handler(turn_off, lambda msg: msg.text == keyboard.Reboot.text, state=Form.System)
-    dp.register_message_handler(reboot, lambda msg: msg.text == keyboard.TurnOff.text, state=Form.System)
+    dp.register_message_handler(turn_off, lambda msg: msg.text == keyboard.TurnOff.text, state=Form.System)
+    dp.register_message_handler(reboot, lambda msg: msg.text == keyboard.Reboot.text, state=Form.System)
