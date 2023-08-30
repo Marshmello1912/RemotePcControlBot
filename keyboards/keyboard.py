@@ -11,6 +11,7 @@ OpenYoutube = KeyboardButton('Открыть ютуб')
 StartSteam = KeyboardButton('Запустить Steam')
 OpenGame = KeyboardButton(f'Запустить {config.steam.gameName}')
 
+TakePhoto = KeyboardButton("Сделать фото с камеры")
 TurnOff = KeyboardButton('Выключить ПК')
 Reboot = KeyboardButton('Перезагрузить ПК')
 
@@ -22,6 +23,6 @@ Exit = KeyboardButton("Назад")
 
 rKeyboardBrowser = ReplyKeyboardMarkup(resize_keyboard=True).row(BrowserStart, OpenYoutube).add(Exit)
 rKeyboardSteam = ReplyKeyboardMarkup(resize_keyboard=True).row(StartSteam, OpenGame).add(Exit)
-rKeyboardSystem = ReplyKeyboardMarkup(resize_keyboard=True).row(TurnOff, Reboot).add(Exit)
+rKeyboardSystem = ReplyKeyboardMarkup(resize_keyboard=True).row(TurnOff, Reboot).add(TakePhoto).add(Exit)
 
 rKeyboardMenu = ReplyKeyboardMarkup(resize_keyboard=True).row(Browser, Steam, System)
