@@ -1,7 +1,10 @@
 from aiogram import Dispatcher, types
+from aiogram.filters import StateFilter
+
 from remoteControl import browser
 from keyboards import keyboard
 from states.state import Form
+
 
 
 async def start_browser(message: types.Message):
@@ -15,5 +18,5 @@ async def open_youtube(message: types.Message):
 
 
 def register_browser_handlers(dp: Dispatcher):
-    dp.register_message_handler(start_browser, lambda msg: msg.text == keyboard.BrowserStart.text, state=Form.Browser)
-    dp.register_message_handler(open_youtube, lambda msg: msg.text == keyboard.OpenYoutube.text, state=Form.Browser)
+    dp.message.register(start_browser, lambda msg: msg.text == keyboard.BrowserStart.text, StateFilter(Form.Browser))
+    dp.message.register(open_youtube, lambda msg: msg.text == keyboard.OpenYoutube.text, StateFilter(Form.Browser))

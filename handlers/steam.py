@@ -1,4 +1,6 @@
 from aiogram import Dispatcher, types
+from aiogram.filters import StateFilter
+
 from remoteControl import steam
 from keyboards import keyboard
 from states.state import Form
@@ -15,6 +17,6 @@ async def start_game(message: types.Message):
 
 
 def register_steam_handlers(dp: Dispatcher):
-    dp.register_message_handler(start_steam, lambda msg: msg.text == keyboard.StartSteam.text, state=Form.Steam)
-    dp.register_message_handler(start_game, lambda msg: msg.text == keyboard.OpenGame.text, state=Form.Steam)
+    dp.message.register(start_steam, lambda msg: msg.text == keyboard.StartSteam.text, StateFilter(Form.Steam))
+    dp.message.register(start_game, lambda msg: msg.text == keyboard.OpenGame.text, StateFilter(Form.Steam))
 

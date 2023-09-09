@@ -1,5 +1,7 @@
 import os
+
 from cv2 import VideoCapture, imwrite
+from aiogram.types.input_file import BufferedInputFile
 
 
 def take_photo():
@@ -7,8 +9,9 @@ def take_photo():
     result, image = cam.read()
     if result:
         imwrite('photo.png', image)
-        with open('photo.png', 'rb') as file:
-            photo = file.read()
+        file = open('photo.png', 'rb')
+        photo = BufferedInputFile(file, 'photo.png').from_file('photo.png', 'photo.png')
+        file.close()
         os.remove("photo.png")
         return photo
     else:

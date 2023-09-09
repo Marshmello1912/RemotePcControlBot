@@ -2,8 +2,9 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.utils.exceptions import NetworkError
+
+from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.exceptions import TelegramNetworkError
 
 import time
 
@@ -11,19 +12,21 @@ from config import load_config
 
 from misc.Notifications import start_notification, closing_notification
 
+from handlers.menu import register_menu_handlers
 from handlers.steam import register_steam_handlers
 from handlers.browser import register_browser_handlers
 from handlers.system import register_system_handlers
-from handlers.menu import register_menu_handlers
+
 
 logger = logging.getLogger(__name__)
 
 
 def register_handlers(dp: Dispatcher):
+    register_menu_handlers(dp)
     register_steam_handlers(dp)
     register_system_handlers(dp)
     register_browser_handlers(dp)
-    register_menu_handlers(dp)
+
 
 
 async def main():
@@ -37,17 +40,15 @@ async def main():
 
     storage = MemoryStorage()
     bot = Bot(token=config.bot.botToken)
-    dp = Dispatcher(bot, storage=storage)
-    dp.bot.timeout = 1
+    dp = Dispatcher(storage=storage)
     register_handlers(dp)
 
     try:
-        await start_notification(dp)
-        await dp.start_polling()
+        await start_notification(bot, dp)
+        await dp.start_polling(bot)
     finally:
-        await closing_notification(dp)
+        await closing_notification(bot)
         await dp.storage.close()
-        await dp.storage.wait_closed()
         await bot.session.close()
 
 
@@ -57,5 +58,7 @@ if __name__ == '__main__':
             asyncio.run(main())
         except (KeyboardInterrupt, SystemExit):
             logger.error("Bot stopped!")
-        except NetworkError:
+            break
+        except TelegramNetworkError:
+            print(123)
             time.sleep(10)

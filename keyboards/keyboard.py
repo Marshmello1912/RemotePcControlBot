@@ -1,28 +1,27 @@
-from aiogram.types import ReplyKeyboardRemove, \
-    ReplyKeyboardMarkup, KeyboardButton, \
-    InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+
 from config import load_config
 
 config = load_config('.env')
 
-BrowserStart = KeyboardButton('Запустить браузер')
-OpenYoutube = KeyboardButton('Открыть ютуб')
+BrowserStart = KeyboardButton(text='Запустить браузер')
+OpenYoutube = KeyboardButton(text='Открыть ютуб')
 
-StartSteam = KeyboardButton('Запустить Steam')
-OpenGame = KeyboardButton(f'Запустить {config.steam.gameName}')
+StartSteam = KeyboardButton(text='Запустить Steam')
+OpenGame = KeyboardButton(text=f'Запустить {config.steam.gameName}')
 
-TakePhoto = KeyboardButton("Сделать фото с камеры")
-TurnOff = KeyboardButton('Выключить ПК')
-Reboot = KeyboardButton('Перезагрузить ПК')
+TakePhoto = KeyboardButton(text="Сделать фото с камеры")
+TurnOff = KeyboardButton(text='Выключить ПК')
+Reboot = KeyboardButton(text='Перезагрузить ПК')
 
-Browser = KeyboardButton("Браузер")
-Steam = KeyboardButton("Стим")
-System = KeyboardButton('Система')
+Browser = KeyboardButton(text="Браузер")
+Steam = KeyboardButton(text="Стим")
+System = KeyboardButton(text='Система')
 
-Exit = KeyboardButton("Назад")
+Exit = KeyboardButton(text="Назад")
 
-rKeyboardBrowser = ReplyKeyboardMarkup(resize_keyboard=True).row(BrowserStart, OpenYoutube).add(Exit)
-rKeyboardSteam = ReplyKeyboardMarkup(resize_keyboard=True).row(StartSteam, OpenGame).add(Exit)
-rKeyboardSystem = ReplyKeyboardMarkup(resize_keyboard=True).row(TurnOff, Reboot).add(TakePhoto).add(Exit)
+rKeyboardBrowser = ReplyKeyboardMarkup(keyboard=[[BrowserStart, OpenYoutube], [Exit]], resize_keyboard=True)
+rKeyboardSteam = ReplyKeyboardMarkup(keyboard=[[StartSteam, OpenGame], [Exit]], resize_keyboard=True)
+rKeyboardSystem = ReplyKeyboardMarkup(keyboard=[[TurnOff, Reboot], [TakePhoto], [Exit]], resize_keyboard=True)
 
-rKeyboardMenu = ReplyKeyboardMarkup(resize_keyboard=True).row(Browser, Steam, System)
+rKeyboardMenu = ReplyKeyboardMarkup(keyboard=[[Browser, Steam, System]], resize_keyboard=True)
