@@ -3,5 +3,9 @@
 __pycache__/
 /dist
 /built
+.idea/
 
 *.cmd
+
+/tests.py
+
