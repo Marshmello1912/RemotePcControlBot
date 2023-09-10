@@ -1,0 +1,4 @@
+aiogram~=3.0.0
+environs~=9.5.0
+opencv-python~=4.8.0.76
+PyAutoGUI~=0.9.54
