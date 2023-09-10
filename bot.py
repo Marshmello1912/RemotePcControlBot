@@ -12,21 +12,19 @@ from config import load_config
 
 from misc.Notifications import start_notification, closing_notification
 
-from handlers.menu import register_menu_handlers
-from handlers.steam import register_steam_handlers
-from handlers.browser import register_browser_handlers
-from handlers.system import register_system_handlers
-
+from handlers.menu import Menu_router
+from handlers.steam import Steam_router
+from handlers.browser import Browser_router
+from handlers.system import System_router
 
 logger = logging.getLogger(__name__)
 
 
 def register_handlers(dp: Dispatcher):
-    register_menu_handlers(dp)
-    register_steam_handlers(dp)
-    register_system_handlers(dp)
-    register_browser_handlers(dp)
-
+    dp.include_router(Menu_router)
+    dp.include_router(Steam_router)
+    dp.include_router(System_router)
+    dp.include_router(Browser_router)
 
 
 async def main():
@@ -60,5 +58,4 @@ if __name__ == '__main__':
             logger.error("Bot stopped!")
             break
         except TelegramNetworkError:
-            print(123)
             time.sleep(10)
