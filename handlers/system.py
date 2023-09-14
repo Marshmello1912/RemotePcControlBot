@@ -1,12 +1,14 @@
-from aiogram import types, Router
-from aiogram.dispatcher.event.handler import FilterObject
+from aiogram import types, Router, F
 from aiogram.filters import StateFilter
 
+from config import load_config
 from remoteControl import system
 from keyboards import keyboard
 from states.state import Form
 
 System_router = Router()
+
+config = load_config()
 
 
 async def take_screenshot(message: types.Message):
@@ -32,7 +34,7 @@ async def reboot(message: types.Message):
     system.reboot_system()
 
 
-System_router.message.register(take_screenshot, lambda msg:msg.text == keyboard.TakeScreenshot.text, StateFilter(Form.System))
-System_router.message.register(take_photo, lambda msg:msg.text == keyboard.TakePhoto.text, StateFilter(Form.System))
-System_router.message.register(turn_off, lambda msg: msg.text == keyboard.TurnOff.text, StateFilter(Form.System))
-System_router.message.register(reboot, lambda msg: msg.text == keyboard.Reboot.text, StateFilter(Form.System))
+System_router.message.register(take_screenshot, (F.text == keyboard.TakeScreenshot.text) & (F.from_user.id == config.admin.adminId), StateFilter(Form.System))
+System_router.message.register(take_photo, (F.text == keyboard.TakePhoto.text) & (F.from_user.id == config.admin.adminId), StateFilter(Form.System))
+System_router.message.register(turn_off, (F.text == keyboard.TurnOff.text) & (F.from_user.id == config.admin.adminId), StateFilter(Form.System))
+System_router.message.register(reboot, (F.text == keyboard.Reboot.text) & (F.from_user.id == config.admin.adminId), StateFilter(Form.System))
